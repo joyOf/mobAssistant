@@ -1,0 +1,14 @@
+@font-face {
+font-family: 'inter';
+src: url('../assets/font/inter/Inter-Medium.woff2') format('woff');
+}
+
+label, input, p {
+  font-family: Inter, serif;
+  font-size: 22px;
+}
+
+input {
+  border: 0;
+  width: 50pt;
+}

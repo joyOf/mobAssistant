@@ -10,11 +10,17 @@
 <!--<input type="number" id="break-every" placeholder="60" value="60">-->
 
 <p>Driver: {{driver}}</p>
-<p>Navigators:</p>
-<input #newNavigator type="text" id="input-navigator" placeholder="Name">
-<button (click)="addNavigator(newNavigator.value)">+</button>
-
-<p *ngFor="let navigator of navigators">{{navigator}}</p>
+<div>
+  <label for="input-navigator">Navigators: </label>
+  <div class="navigator">
+    <input #newNavigator type="text" id="input-navigator" placeholder="Name">
+    <mat-icon (click)="addNavigator(newNavigator.value)">add</mat-icon>
+  </div>
+</div>
+<li class="navigator" *ngFor="let navigator of navigators">
+  {{navigator}}
+  <mat-icon (click)="removeNavigator(navigator)">close</mat-icon>
+</li>
 
 <button (click)="startMob()">Start</button>
 <button (click)="stopMob()">Stop</button>

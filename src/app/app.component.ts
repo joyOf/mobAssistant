@@ -12,8 +12,6 @@ export class AppComponent implements OnInit, OnChanges {
 
   timeLeft: number;
   driverFor: number;
-  breakLength: number;
-  breakEvery: number;
   private interval;
   driverIndex = 0;
 
@@ -24,7 +22,6 @@ export class AppComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.driver = this.navigators[this.driverIndex];
-    console.log(this.driver);
   }
 
   ngOnChanges(): void {
@@ -45,8 +42,8 @@ export class AppComponent implements OnInit, OnChanges {
       if (this.timeLeft !== 0) {
         this.timeLeft--;
       } else {
+        this.stopMob();
         this.timeLeftHandler();
-        clearInterval(this.interval);
       }
     }, 1000);
   }
@@ -63,10 +60,18 @@ export class AppComponent implements OnInit, OnChanges {
     }
     this.driver = this.navigators[this.driverIndex];
     this.timeLeft = this.driverFor;
-    if (confirm(`Next driver is: ${this.navigators[this.driverIndex]}.`)) {
+
+    const dialog = confirm(`Next driver is: ${this.navigators[this.driverIndex]}.`);
+    if (dialog) {
       this.startMob();
-    } else {
-      clearInterval(this.interval);
     }
+    if (!dialog) {
+      this.stopMob();
+    }
+  }
+
+  removeNavigator(navigator: string) {
+    const toRemove = this.navigators.findIndex((n) => n === navigator);
+    this.navigators.splice(toRemove, 1);
   }
 }

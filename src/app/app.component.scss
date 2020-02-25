@@ -1,6 +1,6 @@
 @font-face {
-font-family: 'inter';
-src: url('../assets/font/inter/Inter-Medium.woff2') format('woff');
+  font-family: 'inter';
+  src: url('../assets/font/inter/Inter-Medium.woff2') format('woff');
 }
 
 label, input, p {
@@ -11,4 +11,9 @@ label, input, p {
 input {
   border: 0;
   width: 50pt;
+}
+
+.navigator {
+  display: flex;
+  align-items: center;
 }

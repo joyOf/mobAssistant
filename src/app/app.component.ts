@@ -8,7 +8,7 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 export class AppComponent implements OnInit, OnChanges {
   title = 'mob-assistant';
   driver: string;
-  navigators: string[];
+  players: string[];
 
   timeLeft: number;
   driverFor: number;
@@ -16,16 +16,37 @@ export class AppComponent implements OnInit, OnChanges {
   driverIndex = 0;
 
   constructor() {
-    this.navigators = ['Lars', 'Lulu', 'Mike'];
+    this.players = ['Lars', 'Lulu', 'Mike'];
     this.timeLeft = 15;
+    this.driverFor = 15;
   }
 
   ngOnInit(): void {
-    this.driver = this.navigators[this.driverIndex];
+    this.driver = this.players[this.driverIndex];
   }
 
   ngOnChanges(): void {
-    this.driver = this.navigators[this.driverIndex];
+    this.driver = this.players[this.driverIndex];
+  }
+
+  start() {
+    this.interval = setInterval(() => {
+      if (this.timeLeft !== 0) {
+        this.timeLeft--;
+      } else {
+        this.pause();
+        this.timeLeftHandler();
+      }
+    }, 1000);
+  }
+
+  pause() {
+    clearInterval(this.interval);
+  }
+
+  stop() {
+    clearInterval(this.interval);
+    this.timeLeft = this.driverFor;
   }
 
   driverForHandler(event) {
@@ -33,45 +54,30 @@ export class AppComponent implements OnInit, OnChanges {
     this.driverFor = event.target.value;
   }
 
-  addNavigator(value: string) {
-    this.navigators.push(value);
-  }
-
-  startMob() {
-    this.interval = setInterval(() => {
-      if (this.timeLeft !== 0) {
-        this.timeLeft--;
-      } else {
-        this.stopMob();
-        this.timeLeftHandler();
-      }
-    }, 1000);
-  }
-
-  stopMob() {
-    clearInterval(this.interval);
-  }
-
   timeLeftHandler() {
-    if (this.driverIndex !== this.navigators.length - 1) {
+    if (this.driverIndex !== this.players.length - 1) {
       this.driverIndex++;
     } else {
       this.driverIndex = 0;
     }
-    this.driver = this.navigators[this.driverIndex];
+    this.driver = this.players[this.driverIndex];
     this.timeLeft = this.driverFor;
 
-    const dialog = confirm(`Next driver is: ${this.navigators[this.driverIndex]}.`);
+    const dialog = confirm(`Next driver is: ${this.players[this.driverIndex]}.`);
     if (dialog) {
-      this.startMob();
+      this.start();
     }
     if (!dialog) {
-      this.stopMob();
+      this.pause();
     }
   }
 
-  removeNavigator(navigator: string) {
-    const toRemove = this.navigators.findIndex((n) => n === navigator);
-    this.navigators.splice(toRemove, 1);
+  addNavigator(value: string) {
+    this.players.push(value);
+  }
+
+  removePlayer(navigator: string) {
+    const toRemove = this.players.findIndex((n) => n === navigator);
+    this.players.splice(toRemove, 1);
   }
 }

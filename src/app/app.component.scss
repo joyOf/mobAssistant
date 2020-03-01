@@ -1,19 +1,30 @@
-@font-face {
-  font-family: 'inter';
-  src: url('../assets/font/inter/Inter-Medium.woff2') format('woff');
+.driver-for {
+  width: 45px;
 }
 
-label, input, p {
-  font-family: Inter, serif;
-  font-size: 22px;
+.edit-driver-for {
+  //display: flex;
+  //flex-direction: row;
 }
 
-input {
-  border: 0;
-  width: 50pt;
-}
-
-.navigator {
+.add-player {
   display: flex;
-  align-items: center;
+  margin-top: 20px;
+
+  mat-form-field {
+    width: 100%;
+  }
 }
+
+.mat-icon-button {
+  width: 55px;
+  height: 55px;
+}
+
+.player-item {
+  h3 {
+    margin: 0;
+    width: 100%;
+  }
+}
+

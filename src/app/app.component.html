@@ -1,26 +1,58 @@
-<label>Time left: {{timeLeft}} </label>
+<mat-sidenav-container>
+  <mat-card>
 
-<label for="driver-for">Driver for: </label>
-<input type="number" id="driver-for" placeholder="15" value="15" (change)="driverForHandler($event)">
+    <mat-expansion-panel>
 
-<!--<label for="break-length">Break length: </label>-->
-<!--<input type="number" id="break-length" placeholder="15" value="15">-->
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Time left: {{timeLeft}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Driver: {{driver}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-<!--<label for="break-every">Break every: </label>-->
-<!--<input type="number" id="break-every" placeholder="60" value="60">-->
+      <mat-form-field class="driver-for">
+        <mat-label>Driver For</mat-label>
+        <input matInput type="number" placeholder="15" value="15" (change)="driverForHandler($event)">
+      </mat-form-field>
 
-<p>Driver: {{driver}}</p>
-<div>
-  <label for="input-navigator">Navigators: </label>
-  <div class="navigator">
-    <input #newNavigator type="text" id="input-navigator" placeholder="Name">
-    <mat-icon (click)="addNavigator(newNavigator.value)">add</mat-icon>
+    </mat-expansion-panel>
+
+    <mat-card-actions align="center">
+      <button mat-icon-button (click)="start()">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="pause()">
+        <mat-icon>pause</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="stop()">
+        <mat-icon>stop</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="add-player">
+    <mat-form-field appearance="outline">
+      <mat-label>Add Player</mat-label>
+      <input matInput #newNavigator placeholder="Name" value="">
+    </mat-form-field>
+
+    <button mat-icon-button>
+      <mat-icon (click)="addNavigator(newNavigator.value)">add</mat-icon>
+    </button>
   </div>
-</div>
-<li class="navigator" *ngFor="let navigator of navigators">
-  {{navigator}}
-  <mat-icon (click)="removeNavigator(navigator)">close</mat-icon>
-</li>
 
-<button (click)="startMob()">Start</button>
-<button (click)="stopMob()">Stop</button>
+  <mat-list>
+    <mat-list-item class="player-item" *ngFor="let player of players">
+      <h3>{{player}}</h3>
+      <button mat-icon-button>
+        <mat-icon (click)="removePlayer(player)">close</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</mat-sidenav-container>
+
